@@ -1,0 +1,19 @@
+# Databases & Local Repositories
+*.db
+*.sqlite
+*.sqlite3
+
+# Python Environment & Caching
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+env/
+venv/
+.pytest_cache/
+
+# IDE Configuration Files
+.vscode/
+.idea/
