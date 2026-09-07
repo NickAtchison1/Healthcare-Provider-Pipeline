@@ -1,6 +1,7 @@
 import json
 import sqlite3
 import requests
+import os
 
 
 # 1. OBJECT-ORIENTED ENGINE: Handles communication with the 3rd party system
@@ -60,9 +61,19 @@ class NPPESClient:
 
 # 2. PROCEDURAL PIPELINE: Line-by-line ETL transformation and storage logic
 def run_daily_etl():
-    target_city = "Indianapolis"
-    target_state = "IN"
 
+    print("[INFO] Initializing pipeline configuration parameters...")
+
+    # 🟢 PRODUCTION PATTERN: Fetch parameters from the runtime environment.
+    # If the environment variables don't exist, it gracefully falls back to default values.
+    target_city = os.getenv("PIPELINE_TARGET_CITY", "Indianapolis")
+    target_state = os.getenv("PIPELINE_TARGET_STATE", "IN")
+
+    print(
+        f"[INFO] Operational Target Context configured for: {target_city.upper()}, {target_state.upper()}"
+    )
+
+    # Instantiate client and continue pipeline execution seamlessly
     api_client = NPPESClient()
     raw_results = api_client.search_providers(
         city=target_city, state=target_state, limit=20
